@@ -1,0 +1,57 @@
+body {
+  font-family: sans-serif;
+  background: #f4f6f8;
+  text-align: center;
+  padding: 20px;
+}
+
+.h2 {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: blue;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 20px auto;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.card img {
+  width: 120px;
+  height: 120px;
+  margin: 15px 0;
+}
+button {
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #0b5394;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+#reader {
+  width: 300px;
+  margin: 20px auto;
+}
+iframe {
+  width: 90%;
+  height: 600px;
+  margin-top: 20px;
+  border: 2px solid #0b5394;
+}
+
+button:last-child {
+  background: #e62117;
+}
