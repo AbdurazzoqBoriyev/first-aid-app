@@ -144,3 +144,54 @@ function openTopic(path) {
   // Bu usulda brauzer PDF-ni keshdan oladi va oflayn ko'rish imkonini beradi
   window.open(fileUrl, "_blank");
 }
+
+window.findHospital = function () {
+  // Aynan Google Maps xaritasi va qidiruv natijasini ochadigan havola
+  const mapsUrl = "https://google.com";
+
+  // Brauzerni to'g'ridan-to'g'ri xaritaga yo'naltirish
+  window.location.href = mapsUrl;
+};
+
+function checkPulse() {
+  const pulse = document.getElementById("pulse").value;
+  const resultElement = document.getElementById("result");
+  const heart = document.getElementById("heart");
+
+  if (pulse > 0) {
+    let status = "";
+    let color = "";
+
+    // Holatni aniqlash
+    if (pulse >= 60 && pulse <= 100) {
+      status = "Sizning yurak urishingiz normal. Hammasi joyida.";
+      color = "#28a745";
+    } else if (pulse > 100) {
+      status = "Yurak urishi juda tez. Iltimos, dam oling.";
+      color = "#dc3545";
+    } else {
+      status = "Yurak urishi juda sekin. Diqqat qiling.";
+      color = "#ffc107";
+    }
+
+    // Matnni chiqarish
+    resultElement.innerText = status;
+    resultElement.style.color = color;
+
+    // Animatsiyani sozlash
+    heart.classList.add("beating");
+    heart.style.animationDuration = 60 / pulse + "s";
+
+    // --- OVOZLI CHIQARISH (Speech Synthesis) ---
+    const message = new SpeechSynthesisUtterance(status);
+    message.lang = "ru-RU"; // O'zbek tili hamma brauzerda yo'qligi sababli rus yoki ingliz qo'yish mumkin
+    message.pitch = 1; // Ovoz baland-pastligi
+    message.rate = 1; // Gapirish tezligi
+
+    window.speechSynthesis.cancel(); // Avvalgi gapni to'xtatish
+    window.speechSynthesis.speak(message);
+    // -------------------------------------------
+  } else {
+    resultElement.innerText = "Iltimos, son kiriting!";
+  }
+}

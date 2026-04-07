@@ -24,10 +24,58 @@
 
     <div id="topics-container" class="container"></div>
 
-    <div class="scanner-section">
-      <h2>QR orqali ochish</h2>
-      <div id="reader"></div>
-    </div>
+<div class="maps-container" style="text-align: center; margin: 20px;">
+    <!-- Bu havola faqat Google Maps (Xarita) uchun mo'ljallangan -->
+    <a href="https://www.google.com/maps/"
+       target="_blank"
+       class="maps-button"
+       style="text-decoration: none; display: inline-block; background-color: #34a853; color: white; padding: 12px 24px; border-radius: 25px; font-weight: bold; font-family: sans-serif;">
+        📍 Yaqin atrofdagi shifoxonalar
+    </a>
+</div>
+
+<div class="ai-container" style="text-align: center; margin: 10px;">
+    <!-- Bu havola to'g'ridan-to'g'ri ChatGPT sayti yoki ilovasiga o'tkazadi -->
+    <a href="https://chatgpt.com"
+       target="_blank"
+       class="ai-button"
+       style="text-decoration: none; display: inline-block; background-color: #10a37f; color: white; padding: 12px 24px; border-radius: 25px; font-weight: bold; font-family: sans-serif; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+        🤖 Chat GPT dan so'rash
+    </a>
+</div>
+
+<div class="heart-container">
+  <div id="heart" class="heart">❤️</div>
+</div>
+
+<audio id="heartSound">
+  <source src="https://soundjay.com" type="audio/mpeg">
+</audio>
+
+
+<input class="pulse-input" type="number" id="pulse" placeholder="Yurak urishi">
+<button class="check-btn" onclick="checkPulse()">Tekshir</button>
+<p id="result"></p>
+
+<script>
+function checkPulse() {
+  let pulse = document.getElementById("pulse").value;
+  let result = "";
+
+  if (pulse >= 60 && pulse <= 100) {
+    result = "Normal ✅";
+  } else if (pulse > 100) {
+    result = "Juda tez ⚠️";
+  } else {
+    result = "Juda sekin ⚠️";
+  }
+
+  document.getElementById("result").innerText = result;
+}
+</script>
+
+
+
     <iframe id="viewer" style="display: none"></iframe>
 
     <iframe id="viewer" style="display: none"></iframe>

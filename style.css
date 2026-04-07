@@ -145,3 +145,251 @@ button:last-child {
     box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
   }
 }
+.chatbot {
+  max-width: 600px;
+  margin: 30px auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #eee;
+}
+
+/* Umumiy konteynerlar uchun */
+.scanner-section,
+.chat-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 20px auto;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  border: 1px solid #f0f0f0;
+}
+
+/* Sarlavhalar */
+.scanner-section h2,
+.chat-header {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* QR Skaner qismi */
+#reader {
+  border: 2px dashed #3498db !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+#reader__dashboard_section_csr button {
+  background-color: #3498db !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+#reader__dashboard_section_csr button:hover {
+  background-color: #2980b9 !important;
+}
+
+/* AI Chat qismi */
+#aiResponse {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  min-height: 60px;
+  border-left: 5px solid #e74c3c;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.chat-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#userInput {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+#userInput:focus {
+  border-color: #e74c3c;
+}
+
+.ask-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.ask-btn:hover {
+  background: #c0392b;
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+@media (max-width: 480px) {
+  .chat-container {
+    width: 95%; /* Telefonda ekranning deyarli hammasini egallaydi */
+    padding: 15px; /* Ichki bo'shliqni biroz kamaytiramiz */
+    margin: 10px auto;
+  }
+
+  .chat-header {
+    font-size: 1rem; /* Sarlavha shriftini biroz kichraytiramiz */
+  }
+
+  #aiResponse {
+    font-size: 0.85rem; /* Matn o'qishga qulay bo'ladi */
+  }
+
+  #userInput {
+    padding: 10px; /* Input telefonda qulayroq bo'ladi */
+  }
+
+  .ask-btn {
+    padding: 12px; /* Tugma barmoq bilan bosishga qulay hajmda qoladi */
+  }
+}
+.maps-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.maps-button {
+  background-color: #34a853; /* Yashil rang */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.maps-button:hover {
+  transform: scale(1.05);
+  background-color: #2d8e47;
+}
+.maps-button {
+  background-color: #34a853;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
+}
+.maps-button:hover {
+  background-color: #2d8e47;
+  transform: scale(1.05);
+}
+.pulse-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e6ed;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Padding kenglikka ta'sir qilmasligi uchun */
+}
+
+.pulse-input:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.15);
+}
+
+/* "Tekshir" tugmasi */
+.check-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #0056b3, #003d7a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+}
+
+.check-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 86, 179, 0.4);
+  background: linear-gradient(135deg, #0062cc, #004a94);
+}
+
+.check-btn:active {
+  transform: translateY(0);
+}
+
+/* Natija matni */
+.result-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  min-height: 24px;
+}
+
+.heart-container {
+  font-size: 50px;
+  margin-bottom: 10px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* Urib turish animatsiyasi */
+@keyframes beat {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.3);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+.beating {
+  animation: beat infinite;
+}
