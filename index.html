@@ -5,82 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Birinchi yordam</title>
     <link rel="stylesheet" href="style.css" />
-<link rel="icon" type="image/png  +xml" href="/Screenshot_2.png" />
+    <link rel="stylesheet" href="./package.json" />
+    <link rel="icon" type="image/png  +xml" href="/Screenshot_2.png" />
     <!-- QR skaner kutubxonasi -->
     <script src="https://unpkg.com"></script>
     <h2 class="h2">Muallif: Sh.Bo'riyeva</h2>
   </head>
   <body>
-<div class="top-bar">
-    <!-- Faqat 103 tugmasi -->
-    <a href="tel:103" class="pulse-button">📞 103</a>
+    <div class="top-bar">
+      <!-- Faqat 103 tugmasi -->
+      <a href="tel:103" class="pulse-button">📞 103</a>
 
-    <!-- Muallif ismi -->
-    <span class="author-name">Dasturchi: A.Bo'riyev</span>
-</div>
-
+      <!-- Muallif ismi -->
+      <span class="author-name">Dasturchi: A.Bo'riyev</span>
+    </div>
 
     <h1>Birinchi yordam dasturi</h1>
 
     <div id="topics-container" class="container"></div>
 
-<div class="maps-container" style="text-align: center; margin: 20px;">
-    <!-- Bu havola faqat Google Maps (Xarita) uchun mo'ljallangan -->
-    <a href="https://www.google.com/maps/"
-       target="_blank"
-       class="maps-button"
-       style="text-decoration: none; display: inline-block; background-color: #34a853; color: white; padding: 12px 24px; border-radius: 25px; font-weight: bold; font-family: sans-serif;">
+    <div class="maps-container" style="text-align: center; margin: 20px">
+      <!-- Bu havola faqat Google Maps (Xarita) uchun mo'ljallangan -->
+      <a
+        href="https://www.google.com/maps/"
+        target="_blank"
+        class="maps-button"
+        style="
+          text-decoration: none;
+          display: inline-block;
+          background-color: #34a853;
+          color: white;
+          padding: 12px 24px;
+          border-radius: 25px;
+          font-weight: bold;
+          font-family: sans-serif;
+        "
+      >
         📍 Yaqin atrofdagi shifoxonalar
-    </a>
-</div>
+      </a>
+    </div>
 
-<div class="ai-container" style="text-align: center; margin: 10px;">
-    <!-- Bu havola to'g'ridan-to'g'ri ChatGPT sayti yoki ilovasiga o'tkazadi -->
-    <a href="https://chatgpt.com"
-       target="_blank"
-       class="ai-button"
-       style="text-decoration: none; display: inline-block; background-color: #10a37f; color: white; padding: 12px 24px; border-radius: 25px; font-weight: bold; font-family: sans-serif; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+    <div class="ai-container" style="text-align: center; margin: 10px">
+      <!-- Bu havola to'g'ridan-to'g'ri ChatGPT sayti yoki ilovasiga o'tkazadi -->
+      <a
+        href="https://chatgpt.com"
+        target="_blank"
+        class="ai-button"
+        style="
+          text-decoration: none;
+          display: inline-block;
+          background-color: #10a37f;
+          color: white;
+          padding: 12px 24px;
+          border-radius: 25px;
+          font-weight: bold;
+          font-family: sans-serif;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        "
+      >
         🤖 Chat GPT dan so'rash
-    </a>
-</div>
+      </a>
+    </div>
 
-<div class="heart-container">
-  <div id="heart" class="heart">❤️</div>
-</div>
+    <div class="card">
+      <h2>Yurak urishini tekshirish</h2>
 
-<audio id="heartSound">
-  <source src="https://soundjay.com" type="audio/mpeg">
-</audio>
+      <div class="info-box">
+        <h4>Yurak urishi me'yorlari</h4>
+        <ul>
+          <li>Kattalar (15+ yosh) <b>60 – 100 bpm</b></li>
+          <li>Bolalar (7-14 yosh) <b>70 – 110 bpm</b></li>
+          <li>Chaqaloqlar <b>100 – 160 bpm</b></li>
+        </ul>
+      </div>
 
+      <input
+        type="number"
+        id="yoshInput"
+        placeholder="Yoshingizni kiriting"
+        class="custom-input"
+      />
+      <input
+        type="number"
+        id="pulsInput"
+        placeholder="Yurak urishi (bpm)"
+        class="custom-input"
+      />
+      <button onclick="tekshir()">Tekshir</button>
 
-<input class="pulse-input" type="number" id="pulse" placeholder="Yurak urishi">
-<button class="check-btn" onclick="checkPulse()">Tekshir</button>
-<p id="result"></p>
+      <div id="natija"></div>
 
-<script>
-function checkPulse() {
-  let pulse = document.getElementById("pulse").value;
-  let result = "";
+      <div id="breathSection" class="breath-section">
+        <h3 id="breathText">Nafas mashqi bilan tinchlaning</h3>
+        <div class="breath-container">
+          <div class="breath-circle"></div>
+        </div>
+        <button
+          onclick="startBreathing()"
+          id="breathBtn"
+          class="chat-gpt-btn"
+          style="background: #10a37f"
+        >
+          Mashqni boshlash
+        </button>
+      </div>
 
-  if (pulse >= 60 && pulse <= 100) {
-    result = "Normal ✅";
-  } else if (pulse > 100) {
-    result = "Juda tez ⚠️";
-  } else {
-    result = "Juda sekin ⚠️";
-  }
+      <div class="status-container">
+        <div class="status-labels">
+          <span>Past</span>
+          <span>Normal</span>
+          <span>Yuqori</span>
+        </div>
+        <div class="progress-bg">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
 
-  document.getElementById("result").innerText = result;
-}
-</script>
+      <audio id="heartSound">
+        <source src="https://soundjay.com" type="audio/mpeg" />
+      </audio>
 
+      <script>
+        function checkPulse() {
+          let pulse = document.getElementById("pulse").value;
+          let result = "";
 
+          if (pulse >= 60 && pulse <= 100) {
+            result = "Normal ✅";
+          } else if (pulse > 100) {
+            result = "Juda tez ⚠️";
+          } else {
+            result = "Juda sekin ⚠️";
+          }
 
-    <iframe id="viewer" style="display: none"></iframe>
+          document.getElementById("result").innerText = result;
+        }
+      </script>
 
-    <iframe id="viewer" style="display: none"></iframe>
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="server.js" />
+      <div id="reader" style="width: 500px"></div>
+
+      <iframe id="viewer" style="display: none"></iframe>
+
+      <iframe id="viewer" style="display: none"></iframe>
+      <script src="https://unpkg.com"></script>
+      <script src="./html5-qrcode.min.js/html5-qrcode-master/minified/html5-qrcode.min.js"></script>
+      <script src="./script.js"></script>
+      <link rel="stylesheet" href="server.js" />
     </div>
   </body>
 </html>

@@ -120,8 +120,28 @@ function openTopic(path) {
 function onScanSuccess(decodedText) {
   openTopic(decodedText);
 }
-let scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-scanner.render(onScanSuccess);
+// Skanerni faqat kutubxona yuklanib bo'lgandan keyin ishga tushiramiz
+window.onload = function () {
+  if (typeof Html5QrcodeScanner !== "undefined") {
+    // Sizning skaner sozlamalaringiz:
+    const html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250,
+    });
+
+    function onScanSuccess(decodedText, decodedResult) {
+      console.log(`Skanerlandi: ${decodedText}`);
+      // Bu yerda natija bilan nima qilish kerakligini yozasiz
+    }
+
+    html5QrcodeScanner.render(onScanSuccess);
+  } else {
+    console.error(
+      "Xatolik: QR-kod kutubxonasi hali yuklanmadi. Internetni yoki HTML dagi linkni tekshiring!",
+    );
+  }
+};
+
 function openVideo(videoId) {
   const viewer = document.getElementById("viewer");
 
@@ -153,45 +173,155 @@ window.findHospital = function () {
   window.location.href = mapsUrl;
 };
 
-function checkPulse() {
-  const pulse = document.getElementById("pulse").value;
-  const resultElement = document.getElementById("result");
-  const heart = document.getElementById("heart");
+// Matnni chiqarish
+resultElement.innerText = status;
+resultElement.style.color = color;
 
-  if (pulse > 0) {
-    let status = "";
-    let color = "";
+// Animatsiyani sozlash
+heart.classList.add("beating");
+heart.style.animationDuration = 60 / pulse + "s";
 
-    // Holatni aniqlash
-    if (pulse >= 60 && pulse <= 100) {
-      status = "Sizning yurak urishingiz normal. Hammasi joyida.";
-      color = "#28a745";
-    } else if (pulse > 100) {
-      status = "Yurak urishi juda tez. Iltimos, dam oling.";
-      color = "#dc3545";
-    } else {
-      status = "Yurak urishi juda sekin. Diqqat qiling.";
-      color = "#ffc107";
-    }
+function tekshir() {
+  // Elementlarni olish
+  const yoshInput = document.getElementById("yoshInput");
+  const pulsInput = document.getElementById("pulsInput");
+  const natijaElement = document.getElementById("natija");
+  const breathBox = document.getElementById("breathSection");
+  const heart = document.getElementById("heartIcon");
+  const progressBar = document.getElementById("progressBar");
 
-    // Matnni chiqarish
-    resultElement.innerText = status;
-    resultElement.style.color = color;
+  // Qiymatlarni raqamga aylantirish
+  const yosh = parseInt(yoshInput.value);
+  const puls = parseInt(pulsInput.value);
 
-    // Animatsiyani sozlash
-    heart.classList.add("beating");
-    heart.style.animationDuration = 60 / pulse + "s";
-
-    // --- OVOZLI CHIQARISH (Speech Synthesis) ---
-    const message = new SpeechSynthesisUtterance(status);
-    message.lang = "ru-RU"; // O'zbek tili hamma brauzerda yo'qligi sababli rus yoki ingliz qo'yish mumkin
-    message.pitch = 1; // Ovoz baland-pastligi
-    message.rate = 1; // Gapirish tezligi
-
-    window.speechSynthesis.cancel(); // Avvalgi gapni to'xtatish
-    window.speechSynthesis.speak(message);
-    // -------------------------------------------
-  } else {
-    resultElement.innerText = "Iltimos, son kiriting!";
+  // Xatolikni tekshirish
+  if (!yosh || !puls) {
+    alert("Iltimos, yosh va yurak urishini kiriting!");
+    return;
   }
+
+  let min, max, toifa, xabar;
+
+  // 1. Yosh toifasini aniqlash
+  if (yosh >= 15) {
+    min = 60;
+    max = 100;
+    toifa = "Kattalar";
+  } else if (yosh >= 7) {
+    min = 70;
+    max = 110;
+    toifa = "Bolalar";
+  } else {
+    min = 100;
+    max = 160;
+    toifa = "Chaqaloqlar";
+  }
+
+  // 2. Holatni aniqlash
+  if (puls >= min && puls <= max) {
+    xabar = `Sizda hammasi joyida. ${toifa} uchun me'yor ${min} dan ${max} gacha. Natija me'yorda.`;
+    natijaElement.className = "natija-box normal";
+    breathBox.style.display = "none";
+  } else if (puls < min) {
+    xabar = `Diqqat! Sizda yurak urishi past. ${toifa} uchun me'yor kamida ${min} bo'lishi kerak.`;
+    natijaElement.className = "natija-box past";
+    breathBox.style.display = "none";
+  } else {
+    xabar = `Diqqat! Yurak urishi yuqori. ${toifa} uchun me'yor maksimal ${max} bo'lishi kerak. Iltimos, nafas mashqini bajaring.`;
+    natijaElement.className = "natija-box yuqori";
+    breathBox.style.display = "block";
+  }
+
+  // 3. Ekranga matn chiqarish
+  natijaElement.innerHTML = `<strong>${toifa}:</strong> ${xabar}`;
+  natijaElement.style.display = "block";
+
+  // 4. Shkalani (Progress Bar) yurgizish
+  let foiz = (puls / 180) * 100; // 180 bpm ni 100% deb olamiz
+  if (foiz > 100) foiz = 100;
+  if (progressBar) {
+    progressBar.style.width = foiz + "%";
+  }
+
+  // 5. Yurakchani urdirish
+  if (heart) {
+    heart.classList.add("beating");
+    heart.style.animationDuration = 60 / puls + "s";
+  }
+
+  // 6. Ovozli xabar
+  window.speechSynthesis.cancel(); // Oldingi nutqni to'xtatish
+  const nutq = new SpeechSynthesisUtterance(xabar);
+  nutq.lang = "uz-UZ";
+  window.speechSynthesis.speak(nutq);
 }
+
+// Nafas mashqi funksiyasi
+function startBreathing() {
+  const circle = document.querySelector(".breath-circle");
+  const text = document.getElementById("breathText");
+  const btn = document.getElementById("breathBtn");
+
+  btn.style.display = "none";
+  let cycles = 0;
+
+  const timer = setInterval(() => {
+    if (cycles % 2 === 0) {
+      circle.classList.add("inhale");
+      text.innerText = "Chuqur nafas oling...";
+    } else {
+      circle.classList.remove("inhale");
+      text.innerText = "Sekin nafas chiqaring...";
+    }
+    cycles++;
+
+    if (cycles === 6) {
+      clearInterval(timer);
+      text.innerText =
+        "Mashq tugadi. O'zingizni xotirjam his qilyapsiz degan umiddamiz.";
+      btn.style.display = "inline-block";
+      btn.innerText = "Qayta boshlash";
+    }
+  }, 4000);
+}
+
+self.addEventListener("install", (e) => {
+  console.log("Service Worker o'rnatildi"); // Bu yerda qo'sh tirnoq
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => console.log("Service Worker roʻyxatdan oʻtdi!", reg))
+      .catch((err) => console.log("Xatolik yuz berdi:", err));
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof Html5QrcodeScanner !== "undefined") {
+    // Skanerni ishga tushirish kodi shu yerda bo'lsin
+    let html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250,
+    });
+    html5QrcodeScanner.render(onScanSuccess);
+  } else {
+    console.error("Kutubxona yuklanmadi!");
+  }
+});
+
+function onScanSuccess(decodedText, decodedResult) {
+  // Skanerlanganda nima sodir bo'lishi:
+  console.log(`Kod topildi: ${decodedText}`);
+  alert("Natija: " + decodedText);
+
+  // Agar skanerdan keyin to'xtatmoqchi bo'lsangiz:
+  html5QrcodeScanner.clear();
+}
+
+var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+  fps: 10,
+  qrbox: 250,
+});
+html5QrcodeScanner.render(onScanSuccess);

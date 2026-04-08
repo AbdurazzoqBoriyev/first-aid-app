@@ -393,3 +393,378 @@ button:last-child {
 .beating {
   animation: beat infinite;
 }
+
+.info-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 20px;
+  width: 320px;
+  margin: 20px auto;
+  font-family: "Segoe UI", sans-serif;
+  border-left: 5px solid #007bff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-card h3 {
+  font-size: 1rem;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 5px;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #555;
+}
+
+.value {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Raqam kiritiladigan maydon va tugma orasini ochish */
+input[type="number"],
+input {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px; /* Aynan shu qator tugmani pastga suradi */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box; /* Kenglikni to'g'ri hisoblash uchun */
+}
+
+/* Tugma stili (rasmdagi kabi ko'k rangda) */
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #004289; /* To'q ko'k */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Tugma ustiga borganda rangini biroz o'zgartirish */
+button:hover {
+  background-color: #003366;
+}
+
+/* Ma'lumotlar qutisi uchun umumiy stil */
+.info-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Yumshoq soya */
+  border-left: 6px solid #0056b3; /* Yon chiziq */
+}
+
+/* Sarlavha stili */
+.info-box h4 {
+  color: #002d62;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Ro'yxatni chiroyli ko'rinishga keltirish */
+.info-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-box li {
+  display: flex;
+  justify-content: space-between; /* Matn va raqamni ikki chetga suradi */
+  padding: 10px 0;
+  border-bottom: 1px dashed #e0e0e0;
+  font-size: 15px;
+  color: #444;
+}
+
+.info-box li:last-child {
+  border-bottom: none; /* Oxirgi chiziqni olib tashlash */
+}
+
+/* Raqamli qiymatlar (bpm) uchun alohida stil */
+.info-box li b {
+  color: #0056b3;
+  background: #eef4ff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+#natija {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: none; /* Dastlab ko'rinmaydi */
+}
+
+/* Natija chiqqanda ko'rsatish */
+#natija:not(:empty) {
+  display: block;
+  animation: slideUp 0.5s ease;
+}
+
+/* Holatlarga qarab ranglar */
+.natija-box.normal {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+.natija-box.past {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+.natija-box.yuqori {
+  background: #ffe6e6;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+/* Paydo bo'lish animatsiyasi */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heart-icon {
+  width: 60px; /* Hajmi */
+  display: block;
+  margin: 20px auto;
+  transition: transform 0.2s;
+}
+
+/* Urish animatsiyasi */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.3);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.beating {
+  animation: pulse infinite; /* infinite - to'xtovsiz urish */
+}
+
+.heart {
+  font-size: 50px; /* Belgingiz kattaligi */
+  text-align: center;
+  margin: 20px auto;
+  display: block;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+/* Urish animatsiyasi */
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px red);
+  }
+  15% {
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 10px red);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Animatsiyani ishga tushiruvchi klass */
+.beating {
+  animation: heartBeat infinite;
+}
+
+/* "Chat GPT dan so'rash" tugmasi uchun (va boshqa tugmalar uchun ham) */
+.ai-button,
+.hospital-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 25px;
+  border-radius: 30px; /* Rasmdagi kabi yumaloq shakl */
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Silliq o'tish effekti */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat GPT tugmasining asosiy rangi (yashil-havorang) */
+.ai-button {
+  background-color: #10a37f;
+}
+
+/* --- KURSOR USTIGA KELGANDAGI EFFEKT --- */
+.ai-button:hover {
+  transform: scale(1.05); /* 5% ga kattalashadi */
+  background-color: #0d8a6c; /* Rangi biroz to'qroq bo'ladi */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Soyasi chuqurlashadi */
+}
+
+/* Tugma bosilganda kichik siljish (active holati) */
+.ai-button:active {
+  transform: scale(0.98);
+}
+.breath-section {
+  display: none; /* Boshida yashirin */
+  background: #f0fdf4;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px dashed #10a37f;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.breath-container {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breath-circle {
+  width: 40px;
+  height: 40px;
+  background: #10a37f;
+  border-radius: 50%;
+  opacity: 0.6;
+  transition: all 4s ease-in-out;
+}
+
+.inhale {
+  transform: scale(3);
+  opacity: 0.3;
+}
+/* Konteynerni markazlash va masofa berish */
+.status-container {
+  margin: 30px 0;
+  width: 100%;
+  padding: 0 10px;
+}
+
+/* Yozuvlar (Past, Normal, Yuqori) uchun stil */
+.status-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Shkala foni */
+.progress-bg {
+  width: 100%;
+  height: 16px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Ichki soya */
+  overflow: hidden;
+}
+
+/* Shkalaning o'zi (yuguradigan qismi) */
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(to right, #3498db 0%, #2ecc71 50%, #e74c3c 100%);
+  border-radius: 20px;
+  transition: width 1.2s cubic-bezier(0.1, 0.5, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+/* Shkala foni (kulrang qismi) */
+.progress-bg {
+  width: 100%;
+  height: 20px; /* Qalinligi */
+  background: #e0e0e0;
+  border-radius: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ichki to'ladigan qismi */
+.progress-bar {
+  width: 0%; /* Dastlab bo'sh */
+  height: 100%;
+  /* Ko'kdan qizilgacha chiroyli rang o'tishi */
+  background: linear-gradient(to right, #3498db, #2ecc71, #f1c40f, #e74c3c);
+  border-radius: 10px;
+  transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1); /* Silliq yugurib borishi */
+}
+/* Default (light mode) */
+body {
+  background-color: white;
+  color: black;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
