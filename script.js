@@ -297,31 +297,3 @@ if ("serviceWorker" in navigator) {
       .catch((err) => console.log("Xatolik yuz berdi:", err));
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof Html5QrcodeScanner !== "undefined") {
-    // Skanerni ishga tushirish kodi shu yerda bo'lsin
-    let html5QrcodeScanner = new Html5QrcodeScanner("reader", {
-      fps: 10,
-      qrbox: 250,
-    });
-    html5QrcodeScanner.render(onScanSuccess);
-  } else {
-    console.error("Kutubxona yuklanmadi!");
-  }
-});
-
-function onScanSuccess(decodedText, decodedResult) {
-  // Skanerlanganda nima sodir bo'lishi:
-  console.log(`Kod topildi: ${decodedText}`);
-  alert("Natija: " + decodedText);
-
-  // Agar skanerdan keyin to'xtatmoqchi bo'lsangiz:
-  html5QrcodeScanner.clear();
-}
-
-var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
-  fps: 10,
-  qrbox: 250,
-});
-html5QrcodeScanner.render(onScanSuccess);
