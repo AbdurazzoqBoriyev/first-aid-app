@@ -1,3 +1,12 @@
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("sw.js")
+      .then((reg) => console.log("Service Worker: Ro‘yxatdan o‘tdi"))
+      .catch((err) => console.log(`Xato: ${err}`));
+  });
+}
+
 const topics = [
   {
     folder: "Burundan qon ketganda",
