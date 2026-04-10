@@ -7,40 +7,39 @@ const cacheAssets = [
   "sogliq.svg",
 ];
 
-const cacheName = "v1";
+const CACHE_NAME = "offline-v2"; // Versiyani o'zgartirdik
 
-// O'rnatish bosqichi
-self.addEventListener("install", (e) => {
-  console.log("Service Worker: O‘rnatildi");
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(["./", "index.html"]); // Eng kamida indexni saqlaymiz
+    }),
+  );
+  self.skipWaiting();
 });
 
-// Aktivlashtirish (eski keshni o'chirish)
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
-    caches.keys().then((cacheNames) => {
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== cacheName) {
-            return caches.delete(cache);
-          }
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
         }),
       );
     }),
   );
 });
 
-// Asosiy qism: Internetdan olish yoki keshdan berish
-self.addEventListener("fetch", (e) => {
-  e.respondWith(
-    fetch(e.request)
-      .then((res) => {
-        // Internet bor: faylni keshga nusxalaymiz
-        const resClone = res.clone();
-        caches.open(cacheName).then((cache) => {
-          cache.put(e.request, resClone);
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        const resClone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, resClone);
         });
-        return res;
+        return response;
       })
-      .catch(() => caches.match(e.request)), // Internet yo'q: keshdan olamiz
+      .catch(() => caches.match(event.request)),
   );
 });
